@@ -24,9 +24,9 @@
     $cnx = new PDO("mysql:host=$host;dbname=$dbname",$username, $password);
 
     //Build SQL Sentence
-    $sql = "INSERT INTO person (id, user_type_id, document_type_id, document_number, names, surnames, age, email, municipality_id, neighborhood, address, program_id, code, health_provider_id, medical_preexistence) VALUES (NULL, '$user_type', '$document_type, '$document_number', '$names',
-        '$surnames', '$age', '$email', '$municipality', '$neighborhood', '$address', '$program', '$code', '$health_provider', '$medical_preexistence');";
-
+    $sql = "INSERT INTO person (id, user_type_id, document_type_id, document_number, names, surnames, age, email, municipality_id, neighborhood, address, program_id, code, health_provider_id, medical_preexistence) 
+            VALUES (NULL, '$user_type', '$document_type', '$document_number', '$names', '$surnames', '$age', '$email', '$municipality', '$neighborhood', '$address', '$program', '$code', '$health_provider', '$medical_preexistence');";
+              
     //Prepare SQL Sentence 
     $q = $cnx->prepare($sql);
 

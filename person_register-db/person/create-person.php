@@ -53,6 +53,7 @@
     //Execute SQL Sentence
     $result = $q->execute();
     $health_provider = $q->fetchAll();
+    
 ?>
 
 <!Doctype html>

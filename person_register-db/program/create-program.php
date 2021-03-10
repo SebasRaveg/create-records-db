@@ -18,7 +18,6 @@
 
     //Execute SQL Sentence
     $result = $q->execute();
-
     $faculty = $q->fetchAll();
 
 ?>
