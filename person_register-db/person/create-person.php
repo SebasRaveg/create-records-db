@@ -1,18 +1,51 @@
 <?php
+    //DB Connection
+    include("connection_db.php");
+?>
+
+<?php
+
+    $user_type = $_REQUEST["user_type"];
+    $document_type = $_REQUEST["document_type"];
+    $document_number = $_REQUEST["document_number"];
+    $names = $_REQUEST["names"];
+    $surnames = $_REQUEST["surnames"];
+    $age = $_REQUEST["age"];
+    $email = $_REQUEST["email"];
+    $municipality = $_REQUEST["municipality"];
+    $neighborhood = $_REQUEST["neighborhood"];
+    $address = $_REQUEST["address"];
+    $program = $_REQUEST["program"];
+    $code = $_REQUEST["code"];
+    $health_provider = $_REQUEST["health_provider"];
+    $medical_preexistence = $_REQUEST["medical_preexistence"];
+
+    if(isset($_POST["btn"])){
+        $VBoton=$_POST["btn"];
+        
+        if($VBoton=="Save Person"){
+            //Build SQL Sentence
+            $sql = "INSERT INTO person (id, user_type_id, document_type_id, document_number, names, surnames, age, email, municipality_id, neighborhood, address, program_id, code, health_provider_id, medical_preexistence) 
+            VALUES (NULL, '$user_type', '$document_type', '$document_number', '$names', '$surnames', '$age', '$email', '$municipality', '$neighborhood', '$address', '$program', '$code', '$health_provider', '$medical_preexistence');";
+            //Prepare SQL Sentence
+		    $q = $cnx->prepare($sql);
+            //Execute SQL Sentence
+            $result = $q->execute();
+            echo "<script> alert('Person $names $surnames with identification $document_type $document_number successfully');</script>";
+		}
+        else{
+            echo "<script> alert(There was an error creating the Municipality $names $surnames with identification $document_type $document_number );</script>";
+        }
+    }
+?>
+
+<?php
 
     $user_type = $_REQUEST["user_type"];
     $document_type = $_REQUEST["document_type"];
     $municipality = $_REQUEST["municipality"];
     $program = $_REQUEST["program"];
     $health_provider = $_REQUEST["health_provider"];
-
-    //Connect DataBase
-    $host = "localhost";
-    $dbname = "person_register";
-    $username = "root";
-    $password = "";
-
-    $cnx = new PDO("mysql:host=$host;dbname=$dbname",$username, $password);
 
     //Build SQL Sentence
     $sql = "SELECT id, user_type FROM user_type";
@@ -69,7 +102,7 @@
 
   </head>
   <body>
-      <form action="save-person.php" method="POST">
+      <form action="create-person.php" method="POST">
             <p>
                 <label for="user_type" class="put_user_type"> User Type </label>
                 <select name="user_type" id="user_type">
@@ -205,7 +238,7 @@
                 <textarea name="medical_preexistence" class="text_medical_preexistence" id="medical_preexistence"></textarea> 
             </p> 
         
-            <input type="submit" value="Save Person">
+            <input type="submit" name="btn" value="Save Person">
       </form>
 
   </body>

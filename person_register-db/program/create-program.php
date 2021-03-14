@@ -1,21 +1,40 @@
 <?php
+    //DB Connection
+    include("connection_db.php");
+?>
+
+<?php
+
+    $faculty = $_REQUEST["faculty"];
+    $program_cod= $_REQUEST["program_cod"];
+    $program_name = $_REQUEST["program_name"];
+
+    if(isset($_POST["btn"])){
+        $VBoton=$_POST["btn"];
+        
+        if($VBoton=="Save Program"){
+            //Build SQL Sentence
+            $sql = "INSERT INTO program (id, faculty_id, program_cod, program_name) VALUES (NULL, '$faculty', '$program_cod', '$program_name');";
+            //Prepare SQL Sentence
+		    $q = $cnx->prepare($sql);
+            //Execute SQL Sentence
+            $result = $q->execute();
+            echo "<script> alert('Program $program_name saved successfully');</script>";
+		}
+        else{
+            echo "<script> alert(There was an error creating the Program $program_name);</script>";
+        }
+    }
+?>
+
+<?php
 
     $faculty = $_REQUEST["faculty"];
 
-    //Connect DataBase
-    $host = "localhost";
-    $dbname = "person_register";
-    $username = "root";
-    $password = "";
-
-    $cnx = new PDO("mysql:host=$host;dbname=$dbname",$username, $password);
-
     //Build SQL Sentence
     $sql = "SELECT id, faculty_name FROM faculty";
-
     //Prepare SQL Sentence
     $q = $cnx->prepare($sql);
-
     //Execute SQL Sentence
     $result = $q->execute();
     $faculty = $q->fetchAll();
@@ -64,7 +83,7 @@
                 <input type="text" name="program_name" id="program_name">
             </p>
 
-            <input type="submit" value="Save program">
+            <input type="submit" name="btn" value="Save Program">
       </form>
 
   </body>
