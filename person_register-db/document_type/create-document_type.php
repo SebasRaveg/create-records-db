@@ -1,3 +1,30 @@
+<?php
+    //DB Connection
+    include("connection_db.php");
+?>
+<?php
+
+    $document_type = $_REQUEST["document_type"];
+    $description = $_REQUEST["description"];
+
+    if(isset($_POST["btn"])){
+        $VBoton=$_POST["btn"];
+        
+        if($VBoton=="Save Document"){
+            //Build SQL Sentence
+            $sql = "INSERT INTO document_type (id, document_type, description) VALUES (NULL, '$document_type', '$description');";
+            //Prepare SQL Sentence
+		    $q = $cnx->prepare($sql);
+            //Execute SQL Sentence
+            $result = $q->execute();
+            echo "<script> alert('Document Type $document_type saved successfully');</script>";
+		}
+        else{
+            echo "<script> alert(There was an error creating the Document Type $document_type);</script>";
+        }
+    }
+?>
+
 <!Doctype html>
 <html lang="en">
   <head>
@@ -11,7 +38,7 @@
 
   </head>
   <body>
-      <form action="save-document_type.php" method="POST">
+      <form action="create-document_type.php" method="POST">
             <p>
                 <label for="document_type" class="put_document"> Document Type </label>
                 <input type="text" name="document_type" id="document_type">
@@ -21,7 +48,7 @@
                 <textarea name="description" class="text_description" id="description"></textarea> 
             </p> 
         
-            <input type="submit" value="Save Document">
+            <input type="submit" name="btn" value="Save Document">
       </form>
 
   </body>

@@ -35,7 +35,7 @@
 
   </head>
   <body>
-      <form action="save-program.php" method="POST">
+      <form action="create-program.php" method="POST">
             <p>
                 <label for="faculty" class="put_faculty"> Faculty </label>
                 <select name="faculty" id="faculty">
@@ -63,7 +63,7 @@
                 <label for="program_name" class="put_program_name"> Program Name </label>
                 <input type="text" name="program_name" id="program_name">
             </p>
-        
+
             <input type="submit" value="Save program">
       </form>
 
